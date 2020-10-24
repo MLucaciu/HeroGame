@@ -141,6 +141,7 @@ abstract class AbstractFighter
     {
         # Do 0 damage if the defender is lucky.
         if ($this->isLucky()) {
+            echo 'The attack missed!!' . PHP_EOL;
             return 0;
         }
         $damage = $this->checkForDefensiveAbilities($damage);

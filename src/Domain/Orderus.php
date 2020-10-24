@@ -44,7 +44,8 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
     public function doMagicShield(int &$damage): int
     {
         echo $this->name . ' used MagicShield' . PHP_EOL;
-        return (int)($damage / 2);
+        $damage = (int)($damage / 2);
+        return $damage;
     }
 
     /**
