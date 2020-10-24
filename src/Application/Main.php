@@ -21,6 +21,8 @@ class Main
     private ?Orderus $orderus = null;
     private ?Beast $beast = null;
     private int $round = 0;
+    private bool $gameOver = false;
+
     /**
      * Main constructor.
      */
@@ -46,7 +48,7 @@ class Main
             }
             $this->roundBattle($this->beast, $this->orderus);
         }
-
+        $this->declareWinner($this->orderus, $this->beast, $this->round);
     }
 
     /**
@@ -105,9 +107,26 @@ class Main
      * @param AbstractFighter $secondFighter
      * @return bool
      */
-    private function checkHealth(AbstractFighter $fighter, AbstractFighter $secondFighter): bool
+    protected function checkHealth(AbstractFighter $fighter, AbstractFighter $secondFighter): bool
     {
         # TODO we have a winner
         return $fighter->getHealth() <= 0 || $secondFighter->getHealth() <= 0;
+    }
+
+    /**
+     * @param AbstractFighter $orderus
+     * @param AbstractFighter $beast
+     * @param int $round
+     */
+    protected function declareWinner(AbstractFighter $orderus, AbstractFighter $beast, int $round): Main
+    {
+        echo PHP_EOL;
+        if ($orderus->getHealth() <= 0) {
+            echo 'The Beast won in ' . $round . ' rounds.';
+        } else {
+            echo 'Orderus won in ' . $round . ' rounds';
+        }
+        $this->gameOver = true;
+        return $this;
     }
 }

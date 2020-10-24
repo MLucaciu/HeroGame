@@ -1,3 +1,4 @@
 <?php
 
-echo 'Index.php';
+$main = new \HeroGame\Application\Main();
+$main->play();

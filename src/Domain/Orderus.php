@@ -16,6 +16,8 @@ use HeroGame\Utils\StrategyContext;
  */
 class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeInterface, MagicShieldInterface
 {
+    protected string $name = 'Orderus';
+
     public const GENERAL_STATS = [
         self::HEALTH => [
             self::MIN => 70,
@@ -54,7 +56,7 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
      */
     public function doMagicShield(int $damage): int
     {
-        echo 'Orderus used MagicShield' . PHP_EOL;
+        echo $this->name . ' used MagicShield' . PHP_EOL;
         return $damage / 2;
     }
 
@@ -63,7 +65,7 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
      */
     public function attack(AbstractFighter $defender): int
     {
-            echo 'Orderus attacking the Beast' . PHP_EOL;
+            echo $this->name . 'is attacking ' . $defender->getName() . PHP_EOL;
         if (rand(1,100) <= RapidStrikeInterface::CHANCE) {
             echo 'Orderus used RapidStrike' . PHP_EOL;
             $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
@@ -72,7 +74,7 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
         $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
         $defender->defend($damage);
         echo 'Damage done: ' . $damage . PHP_EOL;
-        echo 'The beast has ' . $defender->getHealth() . ' health left.' . PHP_EOL;
+        echo $defender->getName() . ' has ' . $defender->getHealth() . ' health left.' . PHP_EOL;
         return $damage;
     }
 

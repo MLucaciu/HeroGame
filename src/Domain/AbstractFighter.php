@@ -15,6 +15,8 @@ abstract class AbstractFighter
     /** @var array  */
     protected array $stats = [];
 
+    protected string $name = '';
+
     public const HEALTH = 'health';
     public const DEFENCE = 'defence';
     public const STRENGTH = 'strength';
@@ -64,6 +66,14 @@ abstract class AbstractFighter
     public function getHealth(): int
     {
         return $this->stats[self::HEALTH];
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**
