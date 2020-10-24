@@ -1,0 +1,12 @@
+{
+  "name": "mlucaciu/hero-game",
+  "description": "Orderus Hero eMAG Game",
+  "require" : {
+    "php" : "7.4.*",
+    "ext-dom": "*",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "9.*"
+  }
+}
