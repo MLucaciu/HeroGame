@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace HeroGame\Factory;
 
-use HeroGame\Api\FighterFactoryInterface;
 use HeroGame\Domain\Beast;
+use HeroGame\Utils\RandomInitializer;
 
 /**
  * Class BeastFactory
  * @package HeroGame\Factory
  */
-class BeastFactory implements FighterFactoryInterface
+class BeastFactory extends AbstractFactory
 {
     /**
+     * @param string $initializeMethod
      * @return Beast
      */
-    public function create(): Beast
+    public function create(string $initializeMethod = RandomInitializer::RANDOM_INITIALIZER_NAME): Beast
     {
-        return new Beast();
+        $stats = $this->strategyContext->initStats(Beast::GENERAL_STATS);
+        return new Beast($stats);
     }
 }

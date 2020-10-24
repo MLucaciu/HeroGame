@@ -39,17 +39,6 @@ class Beast extends AbstractFighter implements FighterInterface
         ],
     ];
 
-
-    /**
-     * Orderus constructor.
-     * @param string $initializeMethod
-     */
-    public function __construct(string $initializeMethod = RandomInitializer::RANDOM_INITIALIZER_NAME)
-    {
-        $strategyContext = new StrategyContext($initializeMethod);
-        $this->stats = $strategyContext->initStats(self::GENERAL_STATS);
-    }
-
     /**
      * @inheritDoc
      */

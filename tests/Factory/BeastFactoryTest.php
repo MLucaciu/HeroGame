@@ -6,6 +6,7 @@ namespace HeroGame\Tests\Factory;
 
 use HeroGame\Domain\Beast;
 use HeroGame\Factory\BeastFactory;
+use HeroGame\Utils\StrategyContext;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,6 +15,11 @@ use PHPUnit\Framework\TestCase;
  */
 class BeastFactoryTest extends TestCase
 {
+    /**
+     * @var StrategyContext - mock
+     */
+    private $strategyContext;
+
     /**
      * @var BeastFactory
      */
@@ -24,7 +30,9 @@ class BeastFactoryTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->class = new BeastFactory();
+        $this->strategyContext = $this->createMock(StrategyContext::class);
+
+        $this->class = new BeastFactory($this->strategyContext);
     }
 
     /**
@@ -32,8 +40,50 @@ class BeastFactoryTest extends TestCase
      */
     public function testCreate(): void
     {
+        $this->strategyContext->expects($this->once())
+            ->method('initStats')
+            ->with([
+                'health' => [
+                    'min' => 60,
+                    'max' => 90
+                ],
+                'defence' => [
+                    'min' => 40,
+                    'max' => 60
+                ],
+                'strength' => [
+                    'min' => 60,
+                    'max' => 90
+                ],
+                'speed' => [
+                    'min' => 40,
+                    'max' => 60
+                ],
+                'luck' => [
+                    'min' => 25,
+                    'max' => 40
+                ],
+            ])
+            ->willReturn([
+                'health' => 80,
+                'defence' => 50,
+                'strength' => 75,
+                'speed' => 45,
+                'luck' => 20,
+            ]);
+
         $beast = $this->class->create();
 
         $this->assertInstanceOf(Beast::class, $beast);
+        $this->assertEquals(
+            [
+                'health' => 80,
+                'defence' => 50,
+                'strength' => 75,
+                'speed' => 45,
+                'luck' => 20,
+            ],
+            $beast->getStats()
+        );
     }
 }

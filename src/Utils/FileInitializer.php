@@ -21,5 +21,6 @@ class FileInitializer implements InitializerStrategy
     public function initialize(array $stats): array
     {
         // TODO: Implement initialize() method.
+        return [];
     }
 }

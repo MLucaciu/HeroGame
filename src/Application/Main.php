@@ -25,12 +25,13 @@ class Main
 
     /**
      * Main constructor.
+     * @param OrderusFactory $orderusFactory
+     * @param BeastFactory $beastFactory
      */
-    public function __construct()
-    {
-        $orderusFactory = new OrderusFactory();
-        $beastFactory = new BeastFactory();
-
+    public function __construct(
+        OrderusFactory $orderusFactory,
+        BeastFactory $beastFactory
+    ) {
         $this->orderus = $orderusFactory->create();
         $this->beast = $beastFactory->create();
 

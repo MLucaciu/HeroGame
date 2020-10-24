@@ -16,6 +16,12 @@ class RandomInitializer implements InitializerStrategy
     public const RANDOM_INITIALIZER_NAME = 'random';
 
     /**
+     * Expected result:
+     * [
+     *   HEALTH => 43
+     *    etc
+     *      ....
+     * ]
      * @param array $stats
      * @return array
      */

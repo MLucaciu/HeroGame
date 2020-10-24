@@ -51,6 +51,15 @@ abstract class AbstractFighter
     protected bool $isAttacking = false;
 
     /**
+     * Orderus constructor.
+     * @param array $stats
+     */
+    public function __construct(array $stats)
+    {
+        $this->stats = $stats;
+    }
+
+    /**
      * @param int $value
      * @return $this
      */

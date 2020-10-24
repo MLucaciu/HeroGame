@@ -7,9 +7,6 @@ namespace HeroGame\Domain;
 use HeroGame\Api\FighterInterface;
 use HeroGame\Api\Skills\MagicShieldInterface;
 use HeroGame\Api\Skills\RapidStrikeInterface;
-use HeroGame\Utils\RandomInitializer;
-use HeroGame\Utils\StrategyContext;
-
 /**
  * Class Orderus
  * @package HeroGame\Domain
@@ -40,16 +37,6 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
             self::MAX => 30
         ],
     ];
-
-    /**
-     * Orderus constructor.
-     * @param string $initializeMethod
-     */
-    public function __construct(string $initializeMethod = RandomInitializer::RANDOM_INITIALIZER_NAME)
-    {
-        $strategyContext = new StrategyContext($initializeMethod);
-        $this->stats = $strategyContext->initStats(self::GENERAL_STATS);
-    }
 
     /**
      * @inheritDoc

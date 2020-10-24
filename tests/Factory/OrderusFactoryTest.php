@@ -6,6 +6,7 @@ namespace HeroGame\Tests\Factory;
 
 use HeroGame\Domain\Orderus;
 use HeroGame\Factory\OrderusFactory;
+use HeroGame\Utils\StrategyContext;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,6 +15,11 @@ use PHPUnit\Framework\TestCase;
  */
 class OrderusFactoryTest extends TestCase
 {
+    /**
+     * @var StrategyContext - mock
+     */
+    private $strategyContext;
+
     /**
      * @var OrderusFactory
      */
@@ -24,7 +30,9 @@ class OrderusFactoryTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->class = new OrderusFactory();
+        $this->strategyContext = $this->createMock(StrategyContext::class);
+
+        $this->class = new OrderusFactory($this->strategyContext);
     }
 
     /**
@@ -32,8 +40,50 @@ class OrderusFactoryTest extends TestCase
      */
     public function testCreate(): void
     {
-        $beast = $this->class->create();
+        $this->strategyContext->expects($this->once())
+            ->method('initStats')
+            ->with([
+                'health' => [
+                    'min' => 70,
+                    'max' => 100
+                ],
+                'defence' => [
+                    'min' => 45,
+                    'max' => 55
+                ],
+                'strength' => [
+                    'min' => 70,
+                    'max' => 80
+                ],
+                'speed' => [
+                    'min' => 40,
+                    'max' => 50
+                ],
+                'luck' => [
+                    'min' => 10,
+                    'max' => 30
+                ],
+            ])
+            ->willReturn([
+                'health' => 80,
+                'defence' => 50,
+                'strength' => 75,
+                'speed' => 45,
+                'luck' => 20,
+            ]);
 
-        $this->assertInstanceOf(Orderus::class, $beast);
+        $orderus = $this->class->create();
+
+        $this->assertInstanceOf(Orderus::class, $orderus);
+        $this->assertEquals(
+            [
+                'health' => 80,
+                'defence' => 50,
+                'strength' => 75,
+                'speed' => 45,
+                'luck' => 20,
+            ],
+            $orderus->getStats()
+        );
     }
 }
