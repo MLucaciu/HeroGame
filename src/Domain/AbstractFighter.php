@@ -10,13 +10,10 @@ namespace HeroGame\Domain;
  *
  * @package HeroGame\Domain
  */
-class AbstractFighter
+abstract class AbstractFighter
 {
-    protected $health = 0;
-    protected $defence = 0;
-    protected $strength = 0;
-    protected $speed = 0;
-    protected $luck = 0;
+    /** @var array  */
+    protected array $stats = [];
 
     public const HEALTH = 'health';
     public const DEFENCE = 'defence';
@@ -49,4 +46,31 @@ class AbstractFighter
             self::MAX => 100
         ],
     ];
+
+    public function getStats(): array
+    {
+        return $this->stats;
+    }
+
+    /**
+     * Perform an attack on $fighter
+     * Returns the damage done.
+     * Damage = Attacker strength – Defender defence
+     *
+     * @param AbstractFighter $fighter
+     * @return int
+     */
+    abstract public function attack(AbstractFighter $fighter): int;
+
+    /**
+     * Check if the current fighter is lucky in the current round.
+     * @return bool
+     */
+    protected function isLucky(): bool
+    {
+        # TODO: maybe move this in another class ?
+        $luckyNumber = mt_rand(0, 100);
+
+        return $this->stats[self::LUCK] == $luckyNumber;
+    }
 }

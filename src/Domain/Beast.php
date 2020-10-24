@@ -36,8 +36,7 @@ class Beast extends AbstractFighter implements FighterInterface
             self::MAX => 40
         ],
     ];
-    /** @var array  */
-    private array $stats = [];
+
 
     /**
      * Orderus constructor.
@@ -49,8 +48,16 @@ class Beast extends AbstractFighter implements FighterInterface
         $this->stats = $strategyContext->initStats(self::GENERAL_STATS);
     }
 
-    public function getStats(): array
+    /**
+     * @inheritDoc
+     */
+    public function attack(AbstractFighter $defender): int
     {
-        return $this->stats;
+        # Do 0 damage if the defender is lucky.
+        if ($defender->isLucky()) {
+            return 0;
+        }
+
+        return $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
     }
 }

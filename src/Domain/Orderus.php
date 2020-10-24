@@ -38,8 +38,6 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
             self::MAX => 30
         ],
     ];
-    /** @var array  */
-    private array $stats = [];
 
     /**
      * Orderus constructor.
@@ -51,10 +49,7 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
         $this->stats = $strategyContext->initStats(self::GENERAL_STATS);
     }
 
-    public function getStats(): array
-    {
-        return $this->stats;
-    }
+
 
     public function doMagicShield(): void
     {
@@ -64,5 +59,13 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
     public function doRapidStrike(): void
     {
         // TODO: Implement doRapidStrike() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function attack(AbstractFighter $fighter): int
+    {
+        return $this->stats[self::STRENGTH] - $fighter->getStats()[self::DEFENCE];
     }
 }
