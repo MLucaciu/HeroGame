@@ -44,7 +44,7 @@ class BeastTest extends TestCase
     public function testAttack()
     {
         $defenderMock = $this->createMock(Orderus::class);
-        $defenderMock->expects($this->once())
+        $defenderMock->expects($this->any())
             ->method('getStats')
             ->willReturn([
                 'health' => 100,
