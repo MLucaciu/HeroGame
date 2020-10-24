@@ -17,6 +17,6 @@ interface MagicShieldInterface extends BasicSkillInterface
      * @param int $damage
      * @return int
      */
-    public function doMagicShield(int $damage): int;
+    public function doMagicShield(int &$damage): int;
 
 }

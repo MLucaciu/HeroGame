@@ -11,5 +11,5 @@ namespace HeroGame\Api\Skills;
  */
 interface RapidStrikeInterface extends BasicSkillInterface
 {
-    public const CHANCE = 10;
+    public const RAPIDSTRIKE_CHANCE = 10;
 }

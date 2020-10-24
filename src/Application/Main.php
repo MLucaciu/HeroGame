@@ -33,6 +33,12 @@ class Main
 
         $this->orderus = $orderusFactory->create();
         $this->beast = $beastFactory->create();
+
+        echo 'Stats for Orderus: ' . PHP_EOL;
+        print_r($this->orderus->getStats());
+        echo PHP_EOL;
+        echo 'Stats for the Beast: ' . PHP_EOL;
+        print_r($this->beast->getStats());
     }
 
     /**
@@ -42,6 +48,7 @@ class Main
     {
         $this->initFirstDefenderAndAttacker($this->orderus, $this->beast);
         while ($this->round++ < self::MAX_ROUNDS && !$this->checkHealth($this->orderus, $this->beast)) {
+            echo PHP_EOL . 'round ' . $this->round . PHP_EOL;
             if ($this->orderus->isAttacker()) {
                 $this->roundBattle($this->orderus, $this->beast);
                 continue;
@@ -59,7 +66,9 @@ class Main
     private function roundBattle(AbstractFighter $attacker, AbstractFighter $defender): void
     {
         $damage = $attacker->attack($defender);
+        echo $defender->getName() . ' has ' . $defender->getHealth() . ' health ';
         $defender->setHealth($defender->getHealth() - $damage);
+        echo $defender->getName() . ' has ' . $defender->getHealth() . ' health ';
         $this->switchRoles($attacker, $defender);
     }
 
@@ -126,6 +135,7 @@ class Main
         } else {
             echo 'Orderus won in ' . $round . ' rounds';
         }
+        echo PHP_EOL;
         $this->gameOver = true;
         return $this;
     }
