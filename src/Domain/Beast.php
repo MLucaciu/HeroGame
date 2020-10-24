@@ -53,9 +53,11 @@ class Beast extends AbstractFighter implements FighterInterface
      */
     public function attack(AbstractFighter $defender): int
     {
+        echo 'The Beast attacking the Orderus' . PHP_EOL;
         $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
         $defender->defend($damage);
-
+        echo 'Damage done: ' . $damage . PHP_EOL;
+        echo 'Orderus has ' . $defender->getHealth() . ' health left.' . PHP_EOL;
         return $damage;
     }
 }

@@ -54,7 +54,8 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
      */
     public function doMagicShield(int $damage): int
     {
-       return $damage / 2;
+        echo 'Orderus used MagicShield' . PHP_EOL;
+        return $damage / 2;
     }
 
     /**
@@ -62,13 +63,16 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
      */
     public function attack(AbstractFighter $defender): int
     {
+            echo 'Orderus attacking the Beast' . PHP_EOL;
         if (rand(1,100) <= RapidStrikeInterface::CHANCE) {
+            echo 'Orderus used RapidStrike' . PHP_EOL;
             $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
             $defender->defend($damage);
         }
         $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
         $defender->defend($damage);
-
+        echo 'Damage done: ' . $damage . PHP_EOL;
+        echo 'The beast has ' . $defender->getHealth() . ' health left.' . PHP_EOL;
         return $damage;
     }
 
