@@ -53,11 +53,9 @@ class Beast extends AbstractFighter implements FighterInterface
      */
     public function attack(AbstractFighter $defender): int
     {
-        # Do 0 damage if the defender is lucky.
-        if ($defender->isLucky()) {
-            return 0;
-        }
+        $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
+        $defender->defend($damage);
 
-        return $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
+        return $damage;
     }
 }

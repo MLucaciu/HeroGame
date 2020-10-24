@@ -6,13 +6,10 @@ namespace HeroGame\Api\Skills;
 
 /**
  * Interface RapidStrikeInterface
+ *  Strike twice while it’s his turn to attack; there’s a 10% chance he’ll use this skill every time he attacks
  * @package HeroGame\Api\Skillsa
  */
 interface RapidStrikeInterface extends BasicSkillInterface
 {
-    /**
-     * @return void
-     */
-    public function doRapidStrike(): void;
-
+    public const CHANCE = 10;
 }

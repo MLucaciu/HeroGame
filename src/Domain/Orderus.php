@@ -49,23 +49,39 @@ class Orderus extends AbstractFighter implements FighterInterface, RapidStrikeIn
         $this->stats = $strategyContext->initStats(self::GENERAL_STATS);
     }
 
-
-
-    public function doMagicShield(): void
+    /**
+     * @inheritDoc
+     */
+    public function doMagicShield(int $damage): int
     {
-        // TODO: Implement doMagicShield() method.
-    }
-
-    public function doRapidStrike(): void
-    {
-        // TODO: Implement doRapidStrike() method.
+       return $damage / 2;
     }
 
     /**
      * @inheritDoc
      */
-    public function attack(AbstractFighter $fighter): int
+    public function attack(AbstractFighter $defender): int
     {
-        return $this->stats[self::STRENGTH] - $fighter->getStats()[self::DEFENCE];
+        if (rand(1,100) <= RapidStrikeInterface::CHANCE) {
+            $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
+            $defender->defend($damage);
+        }
+        $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
+        $defender->defend($damage);
+
+        return $damage;
+    }
+
+    /**
+     * Check if some defensive abilities apply.
+     * @param int $damage
+     * @return int
+     */
+    protected function checkForDefensiveAbilities(int $damage): int
+    {
+        if ($damage != 0 && (rand(1,100) <= MagicShieldInterface::CHANCE)) {
+            $damage = $this->doMagicShield($damage);
+        }
+        return $damage;
     }
 }
