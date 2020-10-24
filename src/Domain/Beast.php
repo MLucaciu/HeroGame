@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace HeroGame\Domain;
 
 use HeroGame\Api\FighterInterface;
-use HeroGame\Utils\RandomInitializer;
-use HeroGame\Utils\StrategyContext;
 
 /**
  * Class Beast
@@ -44,9 +42,9 @@ class Beast extends AbstractFighter implements FighterInterface
      */
     public function attack(AbstractFighter $defender): int
     {
-        echo $this->getName() . ' attacking ' . $defender->getName() . PHP_EOL;
+        echo $this->getName() . ' attacking (' . $this->stats[self::STRENGTH] .') ' . $defender->getName() . '(' . $defender->getStats()[self::DEFENCE] . ')' .PHP_EOL;
         $damage = $this->stats[self::STRENGTH] - $defender->getStats()[self::DEFENCE];
-        $defender->defend($damage);
+        $damage = $defender->defend($damage);
         echo 'Damage done: ' . $damage . PHP_EOL;
         return $damage;
     }

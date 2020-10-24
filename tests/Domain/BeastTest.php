@@ -6,6 +6,7 @@ namespace HeroGame\Tests\Domain;
 
 use HeroGame\Domain\AbstractFighter;
 use HeroGame\Domain\Beast;
+use HeroGame\Domain\Orderus;
 use HeroGame\Factory\BeastFactory;
 use HeroGame\Utils\StrategyContext;
 use PHPUnit\Framework\TestCase;
@@ -31,15 +32,36 @@ class BeastTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->strategyContext = $this->createMock(StrategyContext::class);
-
-        $beastFactory = new BeastFactory($this->strategyContext);
-
-        $this->class = $beastFactory->create();
+        $this->class = new Beast([
+            'health' => 80,
+            'defence' => 80,
+            'strength' => 80,
+            'speed' => 80,
+            'luck' => 80,
+        ]);
     }
 
-    public function testAttack(AbstractFighter $defender)
+    public function testAttack()
     {
+        $defenderMock = $this->createMock(Orderus::class);
+        $defenderMock->expects($this->once())
+            ->method('getStats')
+            ->willReturn([
+                'health' => 100,
+                'defence' => 40,
+                'strength' => 50,
+                'speed' => 80,
+                'luck' => 80,
+            ]);
+        $defenderMock->expects($this->once())
+            ->method('defend')
+            ->with(40)
+            ->willReturn(40);
+
+        $damage = $this->class->attack($defenderMock);
+
+        $this->assertEquals(40, $damage);
 
     }
+
 }

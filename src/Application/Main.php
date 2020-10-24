@@ -67,9 +67,9 @@ class Main
     private function roundBattle(AbstractFighter $attacker, AbstractFighter $defender): void
     {
         $damage = $attacker->attack($defender);
-        echo $defender->getName() . ' has ' . $defender->getHealth() . ' health ';
+        echo $defender->getName() . ' has ' . $defender->getHealth() . ' health ' . 'before the setHealth' . PHP_EOL;
         $defender->setHealth($defender->getHealth() - $damage);
-        echo $defender->getName() . ' has ' . $defender->getHealth() . ' health ';
+        echo $defender->getName() . ' has ' . $defender->getHealth() . ' health ' . 'after the setHealth';
         $this->switchRoles($attacker, $defender);
     }
 

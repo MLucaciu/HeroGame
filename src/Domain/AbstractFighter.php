@@ -137,7 +137,7 @@ abstract class AbstractFighter
      * @param int $damage
      * @return int
      */
-    public function defend(int &$damage): int
+    public function defend(int $damage): int
     {
         # Do 0 damage if the defender is lucky.
         if ($this->isLucky()) {
@@ -153,7 +153,7 @@ abstract class AbstractFighter
      * @param int $damage
      * @return int
      */
-    protected function checkForDefensiveAbilities(int &$damage): int
+    protected function checkForDefensiveAbilities(int $damage): int
     {
         return $damage;
     }
